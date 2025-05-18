@@ -1,0 +1,19 @@
+---
+title: "Math/CS Theory Tools"
+author: "Siddhant Chaudhary"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+header-includes:
+    - \usepackage{bm}
+bibliography: [book.bib]
+description: |
+    A series of blogs containing nice theoretical tools from CS research.
+link-citations: true
+github-repo: codetalker7/theorycstools
+---
+
+# Overview
+
+Please see a description of why I made this series of blogs [on my website]().
+I'm too lazy to write those points here again.

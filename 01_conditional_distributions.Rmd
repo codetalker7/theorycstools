@@ -1,0 +1,79 @@
+# Conditional Distributions
+
+**[Sunday 18 May 2025 02:01:50 AM]** _**Conditional distributions**_ are one of
+the most important constructions of modern probability. However, there are
+multiple notions of it (which are similar, but need slightly different
+treatments mathematically, though most of them have the same essence). In this
+post, I'll discuss some of those constructions (and book references where you
+can read more about them). Some of these abstractions can be really helpful if
+one comes across situations where naive notions of conditional probability might
+fail.
+
+The prerequisites for this post will be:
+
+1. Basic notions of measure theory; measures, measurable maps etc., and related
+   concepts.
+2. The standard Borel $\sigma$-algebra on $\mathbb{R}$.
+3. The Lebesgue integral, and some related convergence theorems (monotone,
+   dominated convergence). Also, expected values.
+
+All these are standard notions studied in any measure theory course. I recommend
+the following books to understand them:
+
+1. Klenke, Achim. 2020. _Probability Theory: A Comprehensive Course_. 3rd ed.
+   Springer.
+2. Bogachev, Vladimir I. 2007. _Measure Theory, Volume 1_. Springer.
+3. Rao, M. M. 2005. _Conditional Measures and Applications_. 2nd ed.
+4. Dudley, R. M. 2004. _Real Analysis and Probability_.
+
+## Overview
+
+We'll look at three types of conditional distributions, depending on the type of
+objects we condition on: sets, $\sigma$-algebras (or random variables), and sets
+of measure $0$. Different applications require different levels of conditioning;
+in extreme cases, one may have to condition on impossible events for the sake of
+theoretical analysis. Typically, most courses on probability theory cover only
+the first level of conditioning (i.e conditioning on sets of positive measure).
+
+## Conditioning on sets of positive measure
+
+This is probably the easiest and most intuitive notion of conditionals.
+Intuitively, this construction allows us to condition on _events_ (or sets).
+Suppose $(\Omega, \mathcal{A}, \mathbb{P})$ is a probability space, and let
+$B\in\mathcal{A}$ be a set of positive measure (_i.e._, $\mathbb{P}(B) > 0$). In
+that case, we can define a new probability measure $\mathbb{P}(\cdot | B)$ on
+$\mathcal{A}$ by the following (high school conditional measure):
+
+$$
+    \begin{aligned}
+        \mathbb{P}(A | B) := \frac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)}
+    \end{aligned}
+$$
+
+It is straightforward to verify that this is a probability measure on
+$\mathcal{A}$ . Note that, this notion of the conditional probability gives us a
+_measure_, and not a _random variable_, unlike some other notions of conditional
+expectations that we’ll see.
+
+## Conditioning on $\sigma$-algebras and random variables
+
+The next level of abstraction comes from a simple application: we want to
+condition on _random variables_ (or, measurable maps), or more generally,
+$\sigma$-algebras. Intuitively, suppose $X$ and $Y$ are random variables (in
+some probability space). What should _conditioning_ $X$ on $Y$ mean? One way to
+think of it is this: if we're given enough information about $Y$, what is the
+best guess we can make for $X$? This guess is captured by the _**conditional
+expectation**_ $\mathbb{E}[X | Y]$. Also, note that since we don't condition on
+a specific value of $Y$, we expect this object to itself be random.
+
+Let's now see the more general conditional expectation, which conditions a
+random variable on a $\sigma$-algebra. Let $X$ be a random variable on a
+probability space $(\Omega, \mathcal{A}, \mathbb{P})$, and assume that
+$X\in\mathcal{L}^1(\Omega, \mathcal{A}, \mathbb{P})$ (_i.e._, $X$ is Lebesgue
+integrable). Let $\mathcal{F}\subset\mathcal{A}$ be a sub-$\sigma$-algebra. Again,
+the question we want to ask is: given $\mathcal{F}$, what is the best guess we can
+make about $X$? We'll denote this guess by $\mathbb{E}[X | \mathcal{F}]$.
+
+To that end, we posit that $\mathbb{E}[X | \mathcal{F}]$ is itself a random variable.
+
+
