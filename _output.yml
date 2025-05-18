@@ -4,7 +4,7 @@ bookdown::gitbook:
   config:
     toc:
       before: |
-        <li><a href="./">Math/CS Theory Tools</a></li>
+        <li><a href="./">Math/CS theory tools</a></li>
       after: |
         <li><a href="https://github.com/codetalker7/math" target="blank">Published with bookdown</a></li>
     # edit: https://github.com/USERNAME/REPO/edit/BRANCH/%s
