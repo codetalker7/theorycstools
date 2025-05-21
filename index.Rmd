@@ -15,5 +15,5 @@ github-repo: codetalker7/theorycstools
 
 # Overview
 
-Please see a description of why I made this series of blogs [on my website]().
+Please see a description of why I made this series of blogs [on my website](https://codetalker7.github.io/jekyll/2025-05-17-cstools.html).
 I'm too lazy to write those points here again.
