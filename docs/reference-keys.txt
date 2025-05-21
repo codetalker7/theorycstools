@@ -1,5 +1,17 @@
+def:unlabeled-div-1
+thm:unlabeled-div-2
+def:unlabeled-div-3
 overview
 conditional-distributions
 overview-1
 conditioning-on-sets-of-positive-measure
 conditioning-on-sigma-algebras-and-random-variables
+regular-conditional-distributions
+the-factorization-lemma
+transition-kernels
+defining-regular-conditional-distributions
+def:unlabeled-div-4
+defining-regular-conditional-distributions-w.r.t-sigma-algebras
+def:regular-conditional-distribution
+thm:factorization-lemma
+def:unlabeled-div-2

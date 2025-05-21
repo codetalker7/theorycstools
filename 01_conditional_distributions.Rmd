@@ -17,14 +17,10 @@ The prerequisites for this post will be:
 3. The Lebesgue integral, and some related convergence theorems (monotone,
    dominated convergence). Also, expected values.
 
-All these are standard notions studied in any measure theory course. I recommend
-the following books to understand them:
-
-1. Klenke, Achim. 2020. _Probability Theory: A Comprehensive Course_. 3rd ed.
-   Springer.
-2. Bogachev, Vladimir I. 2007. _Measure Theory, Volume 1_. Springer.
-3. Rao, M. M. 2005. _Conditional Measures and Applications_. 2nd ed.
-4. Dudley, R. M. 2004. _Real Analysis and Probability_.
+All these are standard notions studied in any measure theory course. For these
+notions, my favourite books are [@Rao2005], [@klenkeprobability],
+[@bogachevmeasure1] and [@dudleyanalysisandprob]; I recommend the reader to go
+through _all_ these books and see the minor differences in their treatments.
 
 ## Overview
 
@@ -70,10 +66,199 @@ Let's now see the more general conditional expectation, which conditions a
 random variable on a $\sigma$-algebra. Let $X$ be a random variable on a
 probability space $(\Omega, \mathcal{A}, \mathbb{P})$, and assume that
 $X\in\mathcal{L}^1(\Omega, \mathcal{A}, \mathbb{P})$ (_i.e._, $X$ is Lebesgue
-integrable). Let $\mathcal{F}\subset\mathcal{A}$ be a sub-$\sigma$-algebra. Again,
-the question we want to ask is: given $\mathcal{F}$, what is the best guess we can
-make about $X$? We'll denote this guess by $\mathbb{E}[X | \mathcal{F}]$.
+integrable). Let $\mathcal{F}\subset\mathcal{A}$ be a sub-$\sigma$-algebra.
+Again, the question we want to ask is: given $\mathcal{F}$, what is the best
+guess we can make about $X$? We'll denote this guess by
+$\mathbb{E}[X | \mathcal{F}]$.
 
-To that end, we posit that $\mathbb{E}[X | \mathcal{F}]$ is itself a random variable.
+To that end, we posit that $\mathbb{E}[X | \mathcal{F}]$ is itself a random
+variable. Moreover, it turns out that, to get the best guess of $X$ given $\mathcal{F}$,
+it is enough to be able to *take averages of $X$ over sets in $\mathcal{F}$*. This
+leads us to a definition.
 
+::: {.definition name="Conditional Expectation"}
+
+A random variable $Y$ is called a _**conditional expectation**_ of $X$ given
+$Y$, denoted by $\mathbb{E}[X | \mathcal{F}]$, if the following are true:
+
+1. $Y$ is $\mathcal{F}$-measurable.
+2. For any $A\in\mathcal{F}$, we have that
+   $\mathbb{E}[X1_A] = \mathbb{E}[Y1_A]$. Intuitively, this is just spelling out
+   the fact that, restricted to sets in $\mathcal{F}$, we can average out $X$
+   via it's $\mathcal{F}$-measurable proxy $Y$.
+
+Taking this a step further, if $X$ and $Y$ are random variables, we *define*
+
+$$
+    \begin{aligned}
+        \mathbb{E}[X | Y] := \mathbb{E}[X | \sigma(Y)]
+    \end{aligned}
+$$
+
+:::
+
+It turns out that, under our assumptions, conditional expectations exist upto
+equality almost surely. Conditional expectations have many interesting
+properties (aka linearity, tower property, etc.), which I will not mention here.
+Readers are free to go through the given references to know more about them.
+
+## Regular conditional distributions
+
+We now come to the third type of conditioning: conditioning on sets of measure
+$0$. Note that none of the constructions in the previous sections can handle
+this case. Here's a simple use-case: consider a simple experiment where we
+sample a randomly generated number in $(0, 1)$, which is uniformly distributed.
+Call this number $X$ (a random variable). Followed by this experiment, we then
+run a Bernoulli trial with success probability $x$. How do we formally define
+the expectation of the second random variable, conditioned on a particular value
+$X = x$? Note that one cannot simply condition on a point event $X = x$, since
+for continuous distributions this event may have measure $0$.
+
+This brings us to the notion of _**regular conditional distributions**_. At a
+high level, this construction formalizes everything we need to condition on
+point-events. To discuss this construction, we'll need some additional tools 
+which I'll introduce next.
+
+### The Factorization Lemma
+
+Before we discuss this, let me mention the so called
+_**factorization lemma**_ for measurable maps:
+
+::: {.theorem #factorization-lemma name="Factorization Lemma"}
+
+Let $(\Omega', \mathcal{A}')$ be a measurable space and let $\Omega$ be a
+non-empty set. Let $f:\Omega\to\Omega'$ be a map. A map $g:\Omega\to\mathbb{R}$
+is $\sigma(f)$-$\mathcal{B}(\mathbb{R})$ measurable if and only if there is a
+measurable map
+$\varphi:(\Omega', \mathcal{A}')\to(\mathbb{R}, \mathcal{B}(\mathbb{R}))$ such
+that $g = \varphi\circ f$.
+
+In simple words, checking whether a map $g$ is $\sigma(f)$-measurable is
+equivalent to checking whether $g$ factors through the space
+$(\Omega', \mathcal{A}')$ nicely.
+
+:::
+
+### Transition Kernels
+
+The next tools we'll introduce are the so called _**transition kernels**_, also
+called _**Markov kernels**_ in stochastic settings. These should be thought of
+as a generalization of Markovian transitions: we're given a _current state_, and
+we can follow _transitions_ to other states defined by some distribution. Markov
+chains usually consider a single state space; on the other hand, _Markov
+kernels_ will consider transitions between two measurable spaces. In the
+following definition, we interpret the first argument of the kernel function as
+the current state, and the second argument as the target state.
+
+::: {.definition name="Transition Kernels"}
+
+Let $(\Omega_1, \mathcal{A}_1)$ and $(\Omega_2, \mathcal{A}_2)$ be measurable
+spaces. A map $\kappa:\Omega_1\times \mathcal{A}_2\to[0, \infty]$ is called a
+_**transition kernel**_ (from $\Omega_1$ to $\Omega_2$) if the following hold:
+
+1. $\omega_1\mapsto \kappa(\omega_1, A_2)$ is $\mathcal{A}_1$-measurable for any
+   $A_2\in\mathcal{A}_2$.
+2. $A_2\mapsto \kappa(\omega_1, A_2)$ is a measure on
+   $(\Omega_2, \mathcal{A}_2)$ for any $\omega_1\in\Omega_1$.
+
+If in 2, the measure is a probability measure for all $\omega_1$, $\kappa$ is
+called a _**Markov/stochastic kernel**_.
+
+:::
+
+Let's look at the definition a bit more closely: observe that point 2 formalizes
+our notion of _conditioning on outcomes of random variables_. To see this, we
+assume that $\omega_1\in\Omega_1$ is the outcome of some random variable, and it
+defines a measure on the measurable space $(\Omega_2, \mathcal{A}_2)$. This
+measure is exactly what we'll need as our _conditional distribution_. Point 1
+just ensures that $\kappa$ is also well-behaved w.r.t the first argument (i.e
+the outcomes of a random variable); we just need measurability w.r.t the first
+argument.
+
+### Defining regular conditional distributions
+
+We now have all the tools necessary to complete the construction.
+
+::: {.definition #regular-conditional-distribution name="Regular Conditional Distributions"}
+
+Let $Y$ be a random variable on $(\Omega, \mathcal{A})$ taking values in a measurable
+space $(E, \mathcal{E})$. Let $\mathcal{F}\subset \mathcal{A}$ be a sub-$\sigma$-algebra.
+A stochastic kernel $\kappa_{Y, \mathcal{F}}$ from $(\Omega, \mathcal{F})$
+to $(E, \mathcal{E})$ is called a ***regular conditional distribution*** of $Y$
+given $\mathcal{F}$ if $\kappa_{Y,\mathcal{F}}(\cdot, B)$ is a *version of*
+$\mathbb{P}[Y\in B|\mathcal{F}](\cdot)$, i.e we have
+
+$$
+    \begin{aligned}
+        \kappa_{Y,\mathcal{F}}(\omega, B)  &= \mathbb{P}[Y\in B|\mathcal{F}](\omega)
+    \end{aligned}
+$$
+
+for $\mathbb{P}$-almost all $\omega\in\Omega$ and for all $B\in\mathcal{E}$.
+
+:::
+
+It must be pointed out that these distributions _don't always exist_; infact,
+some nice structure is needed on the value space $E$. It turns out a nice choice
+of $E$ is to let it be a
+[_**Polish space**_](https://en.wikipedia.org/wiki/Polish_space). Through the
+above definition, we can now take conditional probabilities w.r.t point values
+$\omega\in\Omega$. However, we still need to extend this construction to
+conditioning on point-values taken by some random variable; this is exactly what
+we'll do next.
+
+**Extension to conditioning on point-values of random variables.** Let
+$(\Omega, \mathcal{A})$ be a measurable space. Let $X, Y$ be random variables on
+this space taking values in measurable spaces $(E', \mathcal{E}')$ and
+$(E, \mathcal{E})$ respectively. We want to define a notion of a _regular
+conditional distribution_ of $Y$ with respect to $X$; naturally, we'll use the
+Definition \@ref(def:regular-conditional-distribution) with
+$\mathcal{F} = \sigma(X)$.
+
+Particularly, we'll define a stochastic kernel
+$\kappa_{Y, X}:E'\times\mathcal{E}\to[0, \infty)$. This will allow us to then
+take conditional probabilities as follows:
+
+$$
+    \begin{aligned}
+        \mathbb{P}[Y\in A|X = x] := \kappa_{Y, X}(x, A)
+    \end{aligned}
+$$
+
+where $A\in \mathcal{E}$ and $x\in E'$. So, assume that a regular conditional
+distribution $\kappa_{Y, \sigma(X)}:\Omega\times\mathcal{E}\to[0, \infty)$
+exists in the sense of Definition \@ref(def:regular-conditional-distribution).
+Note that $\sigma(X)\subset \Omega$. For this construction, we'll need another
+assumption, namely that $X(\Omega)\in\mathcal{E}'$, i.e $X(\Omega)$ is a
+measurable set itself. In that case, we have the following:
+
+1. Note that the map $\kappa_{Y, \sigma(X)}(\omega, A)$ as a map of the argument
+   $\omega$ is $\sigma(X)$-measurable, by definition, for every
+   $A\in\mathcal{E}$. So, by the Factorization Lemma (Theorem
+   \@ref(thm:factorization-lemma)), there is a map
+   $\kappa_{Y, X}(\cdot, A):(E', \mathcal{E}')\to[0, \infty)$ such that
+   $\kappa_{Y, \sigma(X)}$ factors through $(E', \mathcal{E}')$ via
+   $\kappa_{Y, X}$, i.e we have
+   $\kappa_{Y, \sigma(X)}(\omega, A) = \kappa_{Y, X}(X(\omega), A)$ for all
+   $\omega\in\Omega$. Also, $\kappa_{Y, X}(\cdot, A)$ is
+   $\mathcal{E}'$-measurable for all $A\in\mathcal{E}$.
+
+   Clearly, this is one step in defining the required kernel. Note that, for a
+   fixed $x\in X(\Omega)$, the map $A\mapsto\kappa_{Y, X}(x, A)$ for
+   $A\in\mathcal{E}$ is a probability measure on $(E, \mathcal{E})$, since it
+   equals to $\kappa_{Y, \sigma(X)}(\omega, A)$ for any choice of
+   $\omega\in X^{-1}(x)$. However, we still need to deal with
+   $x\notin X(\Omega)$.
+
+2. To that end, take any arbitrary probability measure $\mu$ on
+   $(E, \mathcal{E})$. The trick is to map all $x\notin X(\Omega)$ to this
+   measure. Particularly, define the map
+   $\kappa'_{Y, X}(x, A) = \kappa_{Y, X}(x, A)\boldsymbol{1}_{x\in X(\Omega)} + \mu(A)\boldsymbol{1}_{x\notin X(\Omega)}$.
+   Since $X(\Omega)\in\mathcal{E}$ the maps $\boldsymbol{1}_{x\in X(\Omega)}$
+   and $\boldsymbol{1}_{x\notin X(\Omega)}$ are both $\mathcal{E}'$-measurable,
+   and so is the defined map $\kappa'_{Y, X}(\cdot, A)$.
+
+So this completes our construction! Finally, we can use the kernel
+$\kappa'_{Y, X}(\omega, A)$ to take conditional probabilities, where we
+condition on point-values $X = x$.
 

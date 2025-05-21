@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2.3 Conditioning on \(\sigma\)-algebras and random variables | Math/CS Theory Tools</title>
+  <title>2.3 Conditioning on \(\sigma\)-algebras and random variables | Math/CS theory tools</title>
   <meta name="description" content="A series of blogs containing nice theoretical tools from CS research." />
   <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2.3 Conditioning on \(\sigma\)-algebras and random variables | Math/CS Theory Tools" />
+  <meta property="og:title" content="2.3 Conditioning on \(\sigma\)-algebras and random variables | Math/CS theory tools" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="A series of blogs containing nice theoretical tools from CS research." />
   <meta name="github-repo" content="codetalker7/theorycstools" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2.3 Conditioning on \(\sigma\)-algebras and random variables | Math/CS Theory Tools" />
+  <meta name="twitter:title" content="2.3 Conditioning on \(\sigma\)-algebras and random variables | Math/CS theory tools" />
   
   <meta name="twitter:description" content="A series of blogs containing nice theoretical tools from CS research." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Siddhant Chaudhary" />
 
 
-<meta name="date" content="2025-05-18" />
+<meta name="date" content="2025-05-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="conditioning-on-sets-of-positive-measure.html"/>
-
+<link rel="next" href="regular-conditional-distributions.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -59,6 +59,29 @@
   
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -73,7 +96,7 @@
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Math/CS Theory Tools</a></li>
+<li><a href="./">Math/CS theory tools</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a></li>
@@ -82,6 +105,12 @@
 <li class="chapter" data-level="2.1" data-path="overview-1.html"><a href="overview-1.html"><i class="fa fa-check"></i><b>2.1</b> Overview</a></li>
 <li class="chapter" data-level="2.2" data-path="conditioning-on-sets-of-positive-measure.html"><a href="conditioning-on-sets-of-positive-measure.html"><i class="fa fa-check"></i><b>2.2</b> Conditioning on sets of positive measure</a></li>
 <li class="chapter" data-level="2.3" data-path="conditioning-on-sigma-algebras-and-random-variables.html"><a href="conditioning-on-sigma-algebras-and-random-variables.html"><i class="fa fa-check"></i><b>2.3</b> Conditioning on <span class="math inline">\(\sigma\)</span>-algebras and random variables</a></li>
+<li class="chapter" data-level="2.4" data-path="regular-conditional-distributions.html"><a href="regular-conditional-distributions.html"><i class="fa fa-check"></i><b>2.4</b> Regular conditional distributions</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="regular-conditional-distributions.html"><a href="regular-conditional-distributions.html#the-factorization-lemma"><i class="fa fa-check"></i><b>2.4.1</b> The Factorization Lemma</a></li>
+<li class="chapter" data-level="2.4.2" data-path="regular-conditional-distributions.html"><a href="regular-conditional-distributions.html#transition-kernels"><i class="fa fa-check"></i><b>2.4.2</b> Transition Kernels</a></li>
+<li class="chapter" data-level="2.4.3" data-path="regular-conditional-distributions.html"><a href="regular-conditional-distributions.html#defining-regular-conditional-distributions"><i class="fa fa-check"></i><b>2.4.3</b> Defining regular conditional distributions</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/codetalker7/math" target="blank">Published with bookdown</a></li>
@@ -95,7 +124,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Math/CS Theory Tools</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Math/CS theory tools</a>
           </h1>
         </div>
 
@@ -117,20 +146,43 @@ a specific value of <span class="math inline">\(Y\)</span>, we expect this objec
 random variable on a <span class="math inline">\(\sigma\)</span>-algebra. Let <span class="math inline">\(X\)</span> be a random variable on a
 probability space <span class="math inline">\((\Omega, \mathcal{A}, \mathbb{P})\)</span>, and assume that
 <span class="math inline">\(X\in\mathcal{L}^1(\Omega, \mathcal{A}, \mathbb{P})\)</span> (<em>i.e.</em>, <span class="math inline">\(X\)</span> is Lebesgue
-integrable). Let <span class="math inline">\(\mathcal{F}\subset\mathcal{A}\)</span> be a sub-<span class="math inline">\(\sigma\)</span>-algebra. Again,
-the question we want to ask is: given <span class="math inline">\(\mathcal{F}\)</span>, what is the best guess we can
-make about <span class="math inline">\(X\)</span>? We’ll denote this guess by <span class="math inline">\(\mathbb{E}[X | \mathcal{F}]\)</span>.</p>
-<p>To that end, we posit that <span class="math inline">\(\mathbb{E}[X | \mathcal{F}]\)</span> is itself a random variable.</p>
-
+integrable). Let <span class="math inline">\(\mathcal{F}\subset\mathcal{A}\)</span> be a sub-<span class="math inline">\(\sigma\)</span>-algebra.
+Again, the question we want to ask is: given <span class="math inline">\(\mathcal{F}\)</span>, what is the best
+guess we can make about <span class="math inline">\(X\)</span>? We’ll denote this guess by
+<span class="math inline">\(\mathbb{E}[X | \mathcal{F}]\)</span>.</p>
+<p>To that end, we posit that <span class="math inline">\(\mathbb{E}[X | \mathcal{F}]\)</span> is itself a random
+variable. Moreover, it turns out that, to get the best guess of <span class="math inline">\(X\)</span> given <span class="math inline">\(\mathcal{F}\)</span>,
+it is enough to be able to <em>take averages of <span class="math inline">\(X\)</span> over sets in <span class="math inline">\(\mathcal{F}\)</span></em>. This
+leads us to a definition.</p>
+<div class="definition">
+<p><span id="def:unlabeled-div-1" class="definition"><strong>Definition 2.1  (Conditional Expectation) </strong></span>A random variable <span class="math inline">\(Y\)</span> is called a <em><strong>conditional expectation</strong></em> of <span class="math inline">\(X\)</span> given
+<span class="math inline">\(Y\)</span>, denoted by <span class="math inline">\(\mathbb{E}[X | \mathcal{F}]\)</span>, if the following are true:</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(Y\)</span> is <span class="math inline">\(\mathcal{F}\)</span>-measurable.</li>
+<li>For any <span class="math inline">\(A\in\mathcal{F}\)</span>, we have that
+<span class="math inline">\(\mathbb{E}[X1_A] = \mathbb{E}[Y1_A]\)</span>. Intuitively, this is just spelling out
+the fact that, restricted to sets in <span class="math inline">\(\mathcal{F}\)</span>, we can average out <span class="math inline">\(X\)</span>
+via it’s <span class="math inline">\(\mathcal{F}\)</span>-measurable proxy <span class="math inline">\(Y\)</span>.</li>
+</ol>
+<p>Taking this a step further, if <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are random variables, we <em>define</em></p>
+<p><span class="math display">\[
+    \begin{aligned}
+        \mathbb{E}[X | Y] := \mathbb{E}[X | \sigma(Y)]
+    \end{aligned}
+\]</span></p>
 </div>
-<!-- </div> -->
+<p>It turns out that, under our assumptions, conditional expectations exist upto
+equality almost surely. Conditional expectations have many interesting
+properties (aka linearity, tower property, etc.), which I will not mention here.
+Readers are free to go through the given references to know more about them.</p>
+</div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="conditioning-on-sets-of-positive-measure.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="conditioning-on-sets-of-positive-measure.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="regular-conditional-distributions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

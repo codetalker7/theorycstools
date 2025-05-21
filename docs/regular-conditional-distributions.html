@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2.4 Regular conditional distributions | Math/CS theory tools</title>
+  <meta name="description" content="A series of blogs containing nice theoretical tools from CS research." />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2.4 Regular conditional distributions | Math/CS theory tools" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A series of blogs containing nice theoretical tools from CS research." />
+  <meta name="github-repo" content="codetalker7/theorycstools" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2.4 Regular conditional distributions | Math/CS theory tools" />
+  
+  <meta name="twitter:description" content="A series of blogs containing nice theoretical tools from CS research." />
+  
+
+<meta name="author" content="Siddhant Chaudhary" />
+
+
+<meta name="date" content="2025-05-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="conditioning-on-sigma-algebras-and-random-variables.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Math/CS theory tools</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a></li>
+<li class="chapter" data-level="2" data-path="conditional-distributions.html"><a href="conditional-distributions.html"><i class="fa fa-check"></i><b>2</b> Conditional Distributions</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="overview-1.html"><a href="overview-1.html"><i class="fa fa-check"></i><b>2.1</b> Overview</a></li>
+<li class="chapter" data-level="2.2" data-path="conditioning-on-sets-of-positive-measure.html"><a href="conditioning-on-sets-of-positive-measure.html"><i class="fa fa-check"></i><b>2.2</b> Conditioning on sets of positive measure</a></li>
+<li class="chapter" data-level="2.3" data-path="conditioning-on-sigma-algebras-and-random-variables.html"><a href="conditioning-on-sigma-algebras-and-random-variables.html"><i class="fa fa-check"></i><b>2.3</b> Conditioning on <span class="math inline">\(\sigma\)</span>-algebras and random variables</a></li>
+<li class="chapter" data-level="2.4" data-path="regular-conditional-distributions.html"><a href="regular-conditional-distributions.html"><i class="fa fa-check"></i><b>2.4</b> Regular conditional distributions</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="regular-conditional-distributions.html"><a href="regular-conditional-distributions.html#the-factorization-lemma"><i class="fa fa-check"></i><b>2.4.1</b> The Factorization Lemma</a></li>
+<li class="chapter" data-level="2.4.2" data-path="regular-conditional-distributions.html"><a href="regular-conditional-distributions.html#transition-kernels"><i class="fa fa-check"></i><b>2.4.2</b> Transition Kernels</a></li>
+<li class="chapter" data-level="2.4.3" data-path="regular-conditional-distributions.html"><a href="regular-conditional-distributions.html#defining-regular-conditional-distributions"><i class="fa fa-check"></i><b>2.4.3</b> Defining regular conditional distributions</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/codetalker7/math" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Math/CS theory tools</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="regular-conditional-distributions" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Regular conditional distributions<a href="regular-conditional-distributions.html#regular-conditional-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We now come to the third type of conditioning: conditioning on sets of measure
+<span class="math inline">\(0\)</span>. Note that none of the constructions in the previous sections can handle
+this case. Here’s a simple use-case: consider a simple experiment where we
+sample a randomly generated number in <span class="math inline">\((0, 1)\)</span>, which is uniformly distributed.
+Call this number <span class="math inline">\(X\)</span> (a random variable). Followed by this experiment, we then
+run a Bernoulli trial with success probability <span class="math inline">\(x\)</span>. How do we formally define
+the expectation of the second random variable, conditioned on a particular value
+<span class="math inline">\(X = x\)</span>? Note that one cannot simply condition on a point event <span class="math inline">\(X = x\)</span>, since
+for continuous distributions this event may have measure <span class="math inline">\(0\)</span>.</p>
+<p>This brings us to the notion of <em><strong>regular conditional distributions</strong></em>. At a
+high level, this construction formalizes everything we need to condition on
+point-events. To discuss this construction, we’ll need some additional tools
+which I’ll introduce next.</p>
+<div id="the-factorization-lemma" class="section level3 hasAnchor" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> The Factorization Lemma<a href="regular-conditional-distributions.html#the-factorization-lemma" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Before we discuss this, let me mention the so called
+<em><strong>factorization lemma</strong></em> for measurable maps:</p>
+<div class="theorem">
+<p><span id="thm:factorization-lemma" class="theorem"><strong>Theorem 2.1  (Factorization Lemma) </strong></span>Let <span class="math inline">\((\Omega&#39;, \mathcal{A}&#39;)\)</span> be a measurable space and let <span class="math inline">\(\Omega\)</span> be a
+non-empty set. Let <span class="math inline">\(f:\Omega\to\Omega&#39;\)</span> be a map. A map <span class="math inline">\(g:\Omega\to\mathbb{R}\)</span>
+is <span class="math inline">\(\sigma(f)\)</span>-<span class="math inline">\(\mathcal{B}(\mathbb{R})\)</span> measurable if and only if there is a
+measurable map
+<span class="math inline">\(\varphi:(\Omega&#39;, \mathcal{A}&#39;)\to(\mathbb{R}, \mathcal{B}(\mathbb{R}))\)</span> such
+that <span class="math inline">\(g = \varphi\circ f\)</span>.</p>
+<p>In simple words, checking whether a map <span class="math inline">\(g\)</span> is <span class="math inline">\(\sigma(f)\)</span>-measurable is
+equivalent to checking whether <span class="math inline">\(g\)</span> factors through the space
+<span class="math inline">\((\Omega&#39;, \mathcal{A}&#39;)\)</span> nicely.</p>
+</div>
+</div>
+<div id="transition-kernels" class="section level3 hasAnchor" number="2.4.2">
+<h3><span class="header-section-number">2.4.2</span> Transition Kernels<a href="regular-conditional-distributions.html#transition-kernels" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The next tools we’ll introduce are the so called <em><strong>transition kernels</strong></em>, also
+called <em><strong>Markov kernels</strong></em> in stochastic settings. These should be thought of
+as a generalization of Markovian transitions: we’re given a <em>current state</em>, and
+we can follow <em>transitions</em> to other states defined by some distribution. Markov
+chains usually consider a single state space; on the other hand, <em>Markov
+kernels</em> will consider transitions between two measurable spaces. In the
+following definition, we interpret the first argument of the kernel function as
+the current state, and the second argument as the target state.</p>
+<div class="definition">
+<p><span id="def:unlabeled-div-2" class="definition"><strong>Definition 2.2  (Transition Kernels) </strong></span>Let <span class="math inline">\((\Omega_1, \mathcal{A}_1)\)</span> and <span class="math inline">\((\Omega_2, \mathcal{A}_2)\)</span> be measurable
+spaces. A map <span class="math inline">\(\kappa:\Omega_1\times \mathcal{A}_2\to[0, \infty]\)</span> is called a
+<em><strong>transition kernel</strong></em> (from <span class="math inline">\(\Omega_1\)</span> to <span class="math inline">\(\Omega_2\)</span>) if the following hold:</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(\omega_1\mapsto \kappa(\omega_1, A_2)\)</span> is <span class="math inline">\(\mathcal{A}_1\)</span>-measurable for any
+<span class="math inline">\(A_2\in\mathcal{A}_2\)</span>.</li>
+<li><span class="math inline">\(A_2\mapsto \kappa(\omega_1, A_2)\)</span> is a measure on
+<span class="math inline">\((\Omega_2, \mathcal{A}_2)\)</span> for any <span class="math inline">\(\omega_1\in\Omega_1\)</span>.</li>
+</ol>
+<p>If in 2, the measure is a probability measure for all <span class="math inline">\(\omega_1\)</span>, <span class="math inline">\(\kappa\)</span> is
+called a <em><strong>Markov/stochastic kernel</strong></em>.</p>
+</div>
+<p>Let’s look at the definition a bit more closely: observe that point 2 formalizes
+our notion of <em>conditioning on outcomes of random variables</em>. To see this, we
+assume that <span class="math inline">\(\omega_1\in\Omega_1\)</span> is the outcome of some random variable, and it
+defines a measure on the measurable space <span class="math inline">\((\Omega_2, \mathcal{A}_2)\)</span>. This
+measure is exactly what we’ll need as our <em>conditional distribution</em>. Point 1
+just ensures that <span class="math inline">\(\kappa\)</span> is also well-behaved w.r.t the first argument (i.e
+the outcomes of a random variable); we just need measurability w.r.t the first
+argument.</p>
+</div>
+<div id="defining-regular-conditional-distributions" class="section level3 hasAnchor" number="2.4.3">
+<h3><span class="header-section-number">2.4.3</span> Defining regular conditional distributions<a href="regular-conditional-distributions.html#defining-regular-conditional-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We now have all the tools necessary to complete the construction.</p>
+<div class="definition">
+<p><span id="def:regular-conditional-distribution" class="definition"><strong>Definition 2.3  (Regular Conditional Distributions) </strong></span>Let <span class="math inline">\(Y\)</span> be a random variable on <span class="math inline">\((\Omega, \mathcal{A})\)</span> taking values in a measurable
+space <span class="math inline">\((E, \mathcal{E})\)</span>. Let <span class="math inline">\(\mathcal{F}\subset \mathcal{A}\)</span> be a sub-<span class="math inline">\(\sigma\)</span>-algebra.
+A stochastic kernel <span class="math inline">\(\kappa_{Y, \mathcal{F}}\)</span> from <span class="math inline">\((\Omega, \mathcal{F})\)</span>
+to <span class="math inline">\((E, \mathcal{E})\)</span> is called a <strong><em>regular conditional distribution</em></strong> of <span class="math inline">\(Y\)</span>
+given <span class="math inline">\(\mathcal{F}\)</span> if <span class="math inline">\(\kappa_{Y,\mathcal{F}}(\cdot, B)\)</span> is a <em>version of</em>
+<span class="math inline">\(\mathbb{P}[Y\in B|\mathcal{F}](\cdot)\)</span>, i.e we have</p>
+<p><span class="math display">\[
+    \begin{aligned}
+        \kappa_{Y,\mathcal{F}}(\omega, B)  &amp;= \mathbb{P}[Y\in B|\mathcal{F}](\omega)
+    \end{aligned}
+\]</span></p>
+<p>for <span class="math inline">\(\mathbb{P}\)</span>-almost all <span class="math inline">\(\omega\in\Omega\)</span> and for all <span class="math inline">\(B\in\mathcal{E}\)</span>.</p>
+</div>
+<p>It must be pointed out that these distributions <em>don’t always exist</em>; infact,
+some nice structure is needed on the value space <span class="math inline">\(E\)</span>. It turns out a nice choice
+of <span class="math inline">\(E\)</span> is to let it be a
+<a href="https://en.wikipedia.org/wiki/Polish_space"><em><strong>Polish space</strong></em></a>. Through the
+above definition, we can now take conditional probabilities w.r.t point values
+<span class="math inline">\(\omega\in\Omega\)</span>. However, we still need to extend this construction to
+conditioning on point-values taken by some random variable; this is exactly what
+we’ll do next.</p>
+<p><strong>Extension to conditioning on point-values of random variables.</strong> Let
+<span class="math inline">\((\Omega, \mathcal{A})\)</span> be a measurable space. Let <span class="math inline">\(X, Y\)</span> be random variables on
+this space taking values in measurable spaces <span class="math inline">\((E&#39;, \mathcal{E}&#39;)\)</span> and
+<span class="math inline">\((E, \mathcal{E})\)</span> respectively. We want to define a notion of a <em>regular
+conditional distribution</em> of <span class="math inline">\(Y\)</span> with respect to <span class="math inline">\(X\)</span>; naturally, we’ll use the
+Definition <a href="regular-conditional-distributions.html#def:regular-conditional-distribution">2.3</a> with
+<span class="math inline">\(\mathcal{F} = \sigma(X)\)</span>.</p>
+<p>Particularly, we’ll define a stochastic kernel
+<span class="math inline">\(\kappa_{Y, X}:E&#39;\times\mathcal{E}\to[0, \infty)\)</span>. This will allow us to then
+take conditional probabilities as follows:</p>
+<p><span class="math display">\[
+    \begin{aligned}
+        \mathbb{P}[Y\in A|X = x] := \kappa_{Y, X}(x, A)
+    \end{aligned}
+\]</span></p>
+<p>where <span class="math inline">\(A\in \mathcal{E}\)</span> and <span class="math inline">\(x\in E&#39;\)</span>. So, assume that a regular conditional
+distribution <span class="math inline">\(\kappa_{Y, \sigma(X)}:\Omega\times\mathcal{E}\to[0, \infty)\)</span>
+exists in the sense of Definition <a href="regular-conditional-distributions.html#def:regular-conditional-distribution">2.3</a>.
+Note that <span class="math inline">\(\sigma(X)\subset \Omega\)</span>. For this construction, we’ll need another
+assumption, namely that <span class="math inline">\(X(\Omega)\in\mathcal{E}&#39;\)</span>, i.e <span class="math inline">\(X(\Omega)\)</span> is a
+measurable set itself. In that case, we have the following:</p>
+<ol style="list-style-type: decimal">
+<li><p>Note that the map <span class="math inline">\(\kappa_{Y, \sigma(X)}(\omega, A)\)</span> as a map of the argument
+<span class="math inline">\(\omega\)</span> is <span class="math inline">\(\sigma(X)\)</span>-measurable, by definition, for every
+<span class="math inline">\(A\in\mathcal{E}\)</span>. So, by the Factorization Lemma (Theorem
+<a href="regular-conditional-distributions.html#thm:factorization-lemma">2.1</a>), there is a map
+<span class="math inline">\(\kappa_{Y, X}(\cdot, A):(E&#39;, \mathcal{E}&#39;)\to[0, \infty)\)</span> such that
+<span class="math inline">\(\kappa_{Y, \sigma(X)}\)</span> factors through <span class="math inline">\((E&#39;, \mathcal{E}&#39;)\)</span> via
+<span class="math inline">\(\kappa_{Y, X}\)</span>, i.e we have
+<span class="math inline">\(\kappa_{Y, \sigma(X)}(\omega, A) = \kappa_{Y, X}(X(\omega), A)\)</span> for all
+<span class="math inline">\(\omega\in\Omega\)</span>. Also, <span class="math inline">\(\kappa_{Y, X}(\cdot, A)\)</span> is
+<span class="math inline">\(\mathcal{E}&#39;\)</span>-measurable for all <span class="math inline">\(A\in\mathcal{E}\)</span>.</p>
+<p>Clearly, this is one step in defining the required kernel. Note that, for a
+fixed <span class="math inline">\(x\in X(\Omega)\)</span>, the map <span class="math inline">\(A\mapsto\kappa_{Y, X}(x, A)\)</span> for
+<span class="math inline">\(A\in\mathcal{E}\)</span> is a probability measure on <span class="math inline">\((E, \mathcal{E})\)</span>, since it
+equals to <span class="math inline">\(\kappa_{Y, \sigma(X)}(\omega, A)\)</span> for any choice of
+<span class="math inline">\(\omega\in X^{-1}(x)\)</span>. However, we still need to deal with
+<span class="math inline">\(x\notin X(\Omega)\)</span>.</p></li>
+<li><p>To that end, take any arbitrary probability measure <span class="math inline">\(\mu\)</span> on
+<span class="math inline">\((E, \mathcal{E})\)</span>. The trick is to map all <span class="math inline">\(x\notin X(\Omega)\)</span> to this
+measure. Particularly, define the map
+<span class="math inline">\(\kappa&#39;_{Y, X}(x, A) = \kappa_{Y, X}(x, A)\boldsymbol{1}_{x\in X(\Omega)} + \mu(A)\boldsymbol{1}_{x\notin X(\Omega)}\)</span>.
+Since <span class="math inline">\(X(\Omega)\in\mathcal{E}\)</span> the maps <span class="math inline">\(\boldsymbol{1}_{x\in X(\Omega)}\)</span>
+and <span class="math inline">\(\boldsymbol{1}_{x\notin X(\Omega)}\)</span> are both <span class="math inline">\(\mathcal{E}&#39;\)</span>-measurable,
+and so is the defined map <span class="math inline">\(\kappa&#39;_{Y, X}(\cdot, A)\)</span>.</p></li>
+</ol>
+<p>So this completes our construction! Finally, we can use the kernel
+<span class="math inline">\(\kappa&#39;_{Y, X}(\omega, A)\)</span> to take conditional probabilities, where we
+condition on point-values <span class="math inline">\(X = x\)</span>.</p>
+
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div class="csl-entry">
+Bogachev, Vladimir I. 2007. <em>Measure Theory, Volume 1</em>. Springer.
+</div>
+<div class="csl-entry">
+Dudley, R. M. 2004. <em>Real Analysis and Probability</em>.
+</div>
+<div class="csl-entry">
+Klenke, Achim. 2020. <em>Probability Theory: A Comprehensive Course</em>. 3rd ed. Springer.
+</div>
+<div class="csl-entry">
+Rao, M. M. 2005. <em>Conditional Measures and Applications</em>. 2nd ed.
+</div>
+</div>
+</div>
+</div>
+<!-- </div> -->
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="conditioning-on-sigma-algebras-and-random-variables.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
