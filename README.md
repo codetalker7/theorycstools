@@ -2,10 +2,12 @@
 
 This is a series of blogs which I'm planning to write on various theoretical
 tools/techniques that I find interesting. I've written about the point of these
-blogs [on my website](), and I'm too lazy to write those points here. This
-repository is based on the [bookdown](https://bookdown.org/yihui/bookdown/)
-package, enabling one to write books in R Markdown. I'd love new PRs to this
-repository (if someone has related ideas of things that can go here).
+blogs
+[on my website](https://codetalker7.github.io/jekyll/2025-05-17-cstools.html),
+and I'm too lazy to write those points here. This repository is based on the
+[bookdown](https://bookdown.org/yihui/bookdown/) package, enabling one to write
+books in R Markdown. I'd love new PRs to this repository (if someone has related
+ideas of things that can go here).
 
 ## Usage
 
@@ -27,4 +29,3 @@ To stop the server:
 ```{r eval=FALSE}
 servr::daemon_stop(1)
 ```
-
